@@ -1,0 +1,782 @@
+/* RoomPage.module.css */
+
+/* ============================= */
+/* 1. General Container */
+/* ============================= */
+.room-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 0;
+  position: relative;
+  transition: background-color 0.3s, color 0.3s;
+  font-family: 'Poppins', sans-serif;
+}
+
+.room-container.light {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.room-container.dark {
+  background-color: #121111;
+  color: #fff;
+}
+
+/* ============================= */
+/* 2. Header */
+/* ============================= */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 15px 30px;
+  background-color: inherit; /* Inherits from .room-container's theme */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.syncrolly-logo {
+  max-width: 60px;
+  height: auto;
+  margin-right: 15px;
+  transition: transform 0.3s ease;
+}
+
+.syncrolly-logo:hover {
+  transform: scale(1.05);
+}
+
+.header h1 {
+  flex: 1;
+  text-align: center;
+  font-size: 1.8rem;
+  margin: 0;
+  color: inherit;
+}
+
+/* Toggle Button (Make Editable/View-Only) */
+.toggle-btn {
+  display: flex;
+  align-items: center;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+  font-size: 0.9rem;
+  margin-right: 40px;
+}
+
+.toggle-btn.editable {
+  background-color: #28a745; /* Green for Editable */
+}
+
+.toggle-btn.viewOnly {
+  background-color: #dc3545; /* Red for View-Only */
+}
+
+.toggle-btn:hover {
+  background-color: #007bff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-btn .icon {
+  margin-right: 8px;
+  font-size: 1rem;
+}
+
+.toggle-btn.editable .icon::before {
+  content: "\f044"; /* Font Awesome edit icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+.toggle-btn.viewOnly .icon::before {
+  content: "\f070"; /* Font Awesome eye icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+/* Chat and Files Buttons Container */
+.chat-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Chat Button */
+.chat-btn,
+.files-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-right: 25px;
+}
+
+.chat-btn:hover,
+.files-btn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.chat-btn:active,
+.files-btn:active {
+  transform: translateY(0);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  margin-right: 55px;
+}
+
+.theme-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+  color: inherit;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.theme-btn:hover {
+  color: #007bff;
+  transform: scale(1.2);
+}
+
+/* ============================= */
+/* 3. Name Setup */
+/* ============================= */
+.name-setup {
+  text-align: center;
+  margin-top: 50px;
+  width: 100%;
+  flex: 1;
+}
+
+.name-setup h1 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.name-setup p {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.name-input {
+  padding: 12px 18px;
+  font-size: 18px;
+  width: 80%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.submit-btn {
+  padding: 12px 20px;
+  font-size: 18px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+.submit-btn:hover {
+  background-color: #218838;
+}
+
+/* ============================= */
+/* 4. Main Content (Code Editor) */
+/* ============================= */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.code-editor {
+  font-size: 1rem;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+  font-family: 'Courier New', Courier, monospace;
+  overflow: auto;
+  border: 1px solid #e7e7e7;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.code-editor.light {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.code-editor.dark {
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+}
+
+/* ============================= */
+/* 5. Typing Indicator */
+/* ============================= */
+.typing-indicator {
+  margin-top: 10px;
+  font-style: italic;
+  color: #999;
+}
+
+.typing-indicator p {
+  margin: 0;
+}
+
+/* ============================= */
+/* 6. Chat Box Sidebar */
+/* ============================= */
+.chat-box {
+  position: fixed;
+  right: -350px;
+  top: 20px;
+  width: 350px;
+  height: 50vh;
+  background-color: #fff;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  transition: right 0.3s ease-in-out;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 15px 0 0 15px;
+}
+
+.chat-box.dark {
+  background-color: #333;
+  color: #fff;
+}
+
+.chat-box.open {
+  right: 20px;
+}
+
+.close-btn {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #007bff;
+}
+
+.chat-box.dark .close-btn {
+  color: #ff2600;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.message {
+  padding: 8px;
+  margin-bottom: 8px;
+  background-color: #f1f1f1;
+  border-radius: 8px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.chat-box.dark .message {
+  background-color: #555;
+  color: #fff;
+}
+
+.chat-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.send-btn {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.send-btn:hover {
+  background-color: #0056b3;
+}
+
+/* ============================= */
+/* 7. Files Modal */
+/* ============================= */
+/* Assuming FilesModal component uses similar class names */
+.files-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: inherit;
+  color: inherit;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  z-index: 1500;
+  width: 80%;
+  max-width: 500px;
+}
+
+.files-modal.dark {
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+}
+
+.files-modal h2 {
+  margin-top: 0;
+}
+
+.files-modal .file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.files-modal.dark .file-item {
+  border-bottom: 1px solid #555;
+}
+
+.files-modal .file-item:last-child {
+  border-bottom: none;
+}
+
+.files-modal .delete-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.files-modal .delete-btn:hover {
+  background-color: darkred;
+}
+
+.files-modal .upload-section {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.files-modal .upload-section input {
+  margin-bottom: 10px;
+}
+
+.files-modal .upload-section button {
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.files-modal .upload-section button:hover {
+  background-color: #218838;
+}
+
+/* ============================= */
+/* 8. Footer */
+/* ============================= */
+.footer {
+  background-color: #f8f9fa; /* Light gray background */
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid #e7e7e7;
+  margin-top: 40px; /* Space above the footer */
+}
+
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 14px;
+  color: #555;
+}
+
+.room-container.dark .footer {
+  background-color: #121111; /* Dark background for footer */
+  color: #fff; /* White text */
+}
+
+.footer-content p {
+  margin: 5px 0;
+}
+
+.contact-link {
+  color: #E1306C; /* Instagram's brand color */
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+  color: #C13584; /* Darker shade on hover */
+}
+
+.contact-link .fa-instagram {
+  color: #E1306C;
+  transition: transform 0.3s ease;
+}
+
+.contact-link:hover .fa-instagram {
+  transform: scale(1.2);
+}
+
+.contact-link:focus {
+  outline: 2px dashed #333;
+  outline-offset: 4px;
+}
+
+/* ============================= */
+/* 9. Loading Spinner */
+/* ============================= */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-size: 1.5em;
+  background-color: inherit;
+  color: inherit;
+}
+
+.spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ============================= */
+/* 10. Responsive Design */
+/* ============================= */
+
+/* Medium Screens (769px - 992px) */
+@media (min-width: 769px) and (max-width: 992px) {
+  .header h1 {
+    font-size: 1.6rem;
+    margin-left: 70px;
+  }
+
+  .main-content {
+    padding: 8px;
+  }
+
+  .code-editor {
+    height: 55vh;
+  }
+
+  .chat-box {
+    width: 300px;
+  }
+
+  .footer-content {
+    font-size: 13px;
+  }
+
+  .chat-btn,
+  .files-btn,
+  .theme-btn,
+  .submit-btn,
+  .send-btn,
+  .toggle-btn,
+  .delete-btn {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+  .syncrolly-logo {
+    max-width: 70px;
+    max-height: 70px;
+  }
+
+  .theme-toggle {
+    margin-right: 30px;
+  }
+
+  .chat-input {
+    font-size: 15px;
+  }
+
+  .name-input {
+    width: 70%;
+  }
+}
+
+/* Small Screens (Below 768px) */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 20px;
+  }
+
+  .header h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 10px 0;
+  }
+
+  .chat-toggle {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  .toggle-btn {
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .theme-toggle {
+    margin-left: 0;
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .chat-btn,
+  .files-btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  .toggle-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .syncrolly-logo {
+    max-width: 50px;
+    margin-right: 10px;
+  }
+
+  .code-editor {
+    font-size: 0.9rem;
+    padding: 6px;
+    height: 50vh;
+  }
+
+  .chat-box {
+    height: 50vh;
+    width: 100%;
+    right: -100%;
+  }
+
+  .chat-box.open {
+    right: 0;
+  }
+
+  .messages {
+    padding: 6px;
+  }
+
+  .message {
+    font-size: 0.8rem;
+    padding: 6px;
+  }
+
+  .chat-input {
+    font-size: 13px;
+  }
+
+  .send-btn {
+    font-size: 13px;
+    padding: 8px 15px;
+  }
+
+  .files-btn {
+    font-size: 13px;
+    padding: 8px 16px;
+  }
+
+  .delete-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .footer-content {
+    font-size: 12px;
+  }
+}
+
+/* Extra Small Screens (Below 480px) */
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.3rem;
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .theme-btn {
+    font-size: 1.1rem;
+  }
+
+  .contact-link .fa-instagram {
+    margin-left: 5px;
+  }
+
+  /* Adjustments for very small screens */
+  .toggle-btn {
+    padding: 5px 10px;
+    font-size: 0.7rem;
+  }
+
+  .chat-btn,
+  .files-btn {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+
+  .submit-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .name-input {
+    width: 90%;
+    padding: 8px;
+    font-size: 1rem;
+  }
+}
+
+/* ============================= */
+/* 11. CodeMirror Custom Styles */
+/* ============================= */
+
+/* Light Theme CodeMirror Styles */
+.room-container.light :global(.cm-editor) {
+  background-color: #f5f5f5 !important; /* Light background for the editor */
+  color: #333 !important;              /* Dark text color */
+}
+
+.room-container.light :global(.cm-scroller) {
+  background-color: #f5f5f5 !important;
+}
+
+.room-container.light :global(.cm-activeLine) {
+  background-color: #e0e0e0 !important; /* Light gray for active line */
+}
+
+.room-container.light :global(.cm-cursor) {
+  border-left: 2px solid #333 !important; /* Dark cursor */
+}
+
+.room-container.light :global(.cm-selectionBackground) {
+  background-color: rgba(0, 123, 255, 0.3) !important; /* Blue selection */
+}
+
+.room-container.light :global(.cm-gutters) {
+  background-color: #f5f5f5 !important;
+  color: #757575 !important;
+  border-right: 1px solid #ccc !important;
+}
+
+.room-container.light :global(.cm-foldedText) {
+  background-color: #e0e0e0 !important;
+  color: #333 !important;
+}
+
+/* Dark Theme CodeMirror Styles */
+.room-container.dark :global(.cm-editor) {
+  background-color: #1e1e1e !important; /* Dark background for the editor */
+  color: #d4d4d4 !important;           /* Light text color */
+}
+
+.room-container.dark :global(.cm-scroller) {
+  background-color: #1e1e1e !important;
+}
+
+.room-container.dark :global(.cm-activeLine) {
+  background-color: #2d2d2d !important; /* Darker background for the active line */
+}
+
+.room-container.dark :global(.cm-cursor) {
+  border-left: 2px solid #ffffff !important; /* White cursor */
+}
+
+.room-container.dark :global(.cm-selectionBackground) {
+  background-color: rgba(0, 123, 255, 0.3) !important; /* Semi-transparent blue selection */
+}
+
+.room-container.dark :global(.cm-gutters) {
+  background-color: #1e1e1e !important;
+  color: #757575 !important;
+  border-right: 1px solid #333 !important;
+}
+
+.room-container.dark :global(.cm-foldedText) {
+  background-color: #2d2d2d !important;
+  color: #d4d4d4 !important;
+}
